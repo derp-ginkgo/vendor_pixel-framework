@@ -144,7 +144,6 @@ import com.google.android.systemui.NotificationLockscreenUserManagerGoogle;
 import com.google.android.systemui.dreamliner.DockIndicationController;
 import com.google.android.systemui.dreamliner.DockObserver;
 import com.google.android.systemui.reversecharging.ReverseChargingViewController;
-import com.google.android.systemui.smartspace.SmartSpaceController;
 import com.google.android.systemui.statusbar.KeyguardIndicationControllerGoogle;
 
 import java.util.Optional;
@@ -166,7 +165,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
     private final Optional<ReverseChargingViewController> mReverseChargingViewControllerOptional;
     private final NotificationPanelViewController mNotificationPanelViewController;
     private final SysuiStatusBarStateController mStatusBarStateController;
-    private final SmartSpaceController mSmartSpaceController;
     private final NotificationLockscreenUserManagerGoogle mNotificationLockscreenUserManagerGoogle;
     private final DockObserver mDockObserver;
     private final BurnInProtectionController mBurnInProtectionController;
@@ -291,7 +289,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             BurnInProtectionController burnInProtectionController,
             Optional<ReverseChargingViewController> reverseChargingViewControllerOptional,
             WallpaperNotifier wallpaperNotifier,
-            SmartSpaceController smartSpaceController,
             DockObserver dockObserver
     ) {
         super(context, notificationsController, fragmentService, lightBarController, autoHideController, statusBarInitializer, 
@@ -347,7 +344,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
         mStatusBarStateController = statusBarStateController;
         mWallpaperNotifier = wallpaperNotifier;
         mNotificationPanelViewController = notificationPanelViewController;
-        mSmartSpaceController = smartSpaceController;
         mNotificationLockscreenUserManagerGoogle = notificationLockscreenUserManagerGoogle;
         mDockObserver = dockObserver;
         mBurnInProtectionController = burnInProtectionController;

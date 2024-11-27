@@ -23,9 +23,6 @@ import com.android.systemui.people.PeopleProvider
 import com.android.systemui.statusbar.NotificationInsetsModule
 import com.android.systemui.statusbar.QsFrameTranslateModule
 import com.android.systemui.SystemUIAppComponentFactoryBase
-import com.android.systemui.keyguard.KeyguardSliceProvider
-import com.google.android.systemui.smartspace.KeyguardSmartspaceStartable
-import com.google.android.systemui.smartspace.SmartSpaceController
 import com.google.android.systemui.statusbar.dagger.CentralSurfacesGoogleModule
 import dagger.Subcomponent
 
@@ -50,13 +47,8 @@ interface SysUIGoogleSysUIComponent : SysUIComponent {
         override fun build(): SysUIGoogleSysUIComponent
     }
 
-    fun createKeyguardSmartspaceController(): KeyguardSmartspaceStartable
-
     /** Member injection into SystemUIAppComponentFactoryBase. */
     override fun inject(factory: SystemUIAppComponentFactoryBase)
-
-    /** Member injection into KeyguardSliceProvider. */
-    override fun inject(keyguardSliceProvider: KeyguardSliceProvider)
 
     /** Member injection into CustomizationProvider. */
     fun inject(customizationProvider: CustomizationProvider)
