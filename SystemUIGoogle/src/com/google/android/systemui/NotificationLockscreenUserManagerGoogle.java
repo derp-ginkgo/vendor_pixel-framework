@@ -40,7 +40,6 @@ import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.util.settings.SecureSettings;
-import com.google.android.systemui.smartspace.SmartSpaceController;
 import dagger.Lazy;
 import javax.inject.Inject;
 import java.util.concurrent.Executor;
@@ -50,7 +49,6 @@ public final class NotificationLockscreenUserManagerGoogle extends NotificationL
     public final Lazy<KeyguardBypassController> mKeyguardBypassControllerLazy;
     public final KeyguardStateController mKeyguardStateController;
     public final KeyguardStateController.Callback mKeyguardVisibilityCallback;
-    public final SmartSpaceController mSmartSpaceController;
 
     @Inject
     public NotificationLockscreenUserManagerGoogle(Context context,
@@ -72,37 +70,19 @@ public final class NotificationLockscreenUserManagerGoogle extends NotificationL
             DumpManager dumpManager,
             LockPatternUtils lockPatternUtils,
             FeatureFlagsClassic featureFlags,
-            Lazy<KeyguardBypassController> keyguardBypassController,
-            SmartSpaceController smartSpaceController) {
+            Lazy<KeyguardBypassController> keyguardBypassController) {
         super(context, broadcastDispatcher, devicePolicyManager, userManager, userTracker, visibilityProviderLazy,
             commonNotifCollectionLazy, clickNotifier, overviewProxyServiceLazy, keyguardManager, statusBarStateController,
             mainExecutor, backgroundExecutor, deviceProvisionedController, keyguardStateController, secureSettings, dumpManager, lockPatternUtils, featureFlags);
         KeyguardStateController.Callback callback = new KeyguardStateController.Callback() {
-            public void onKeyguardShowingChanged() {
-                NotificationLockscreenUserManagerGoogle.this.updateSmartSpaceVisibilitySettings();
-            }
         };
         this.mKeyguardVisibilityCallback = callback;
         this.mKeyguardBypassControllerLazy = keyguardBypassController;
-        this.mSmartSpaceController = smartSpaceController;
         this.mKeyguardStateController = keyguardStateController;
         this.mKeyguardStateController.addCallback(callback);
-    }
-    public void updateSmartSpaceVisibilitySettings() {
-        boolean hideNotifs = false;
-        boolean hideSensitive = !userAllowsPrivateNotificationsInPublic(this.mCurrentUserId) && (isAnyProfilePublicMode() || !this.mKeyguardStateController.isShowing());
-        boolean hideWork = !allowsManagedPrivateNotificationsInPublic();
-        if (!((KeyguardBypassController) this.mKeyguardBypassControllerLazy.get()).getBypassEnabled()) {
-            if (hideWork && (isAnyProfilePublicMode() || !this.mKeyguardStateController.isShowing())) {
-                hideNotifs = true;
-            }
-            hideWork = hideNotifs;
-        }
-        this.mSmartSpaceController.setHideSensitiveData(hideSensitive, hideWork);
     }
 
     public void updatePublicMode() {
         super.updatePublicMode();
-        updateSmartSpaceVisibilitySettings();
     }
 }

@@ -73,7 +73,6 @@ import com.android.systemui.wallpapers.dagger.WallpaperModule
 import com.android.systemui.wmshell.WMShell
 
 import com.google.android.systemui.GoogleServices
-import com.google.android.systemui.smartspace.KeyguardSmartspaceStartable
 
 import dagger.Binds
 import dagger.Module

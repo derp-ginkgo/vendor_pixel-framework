@@ -361,7 +361,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
         if (mReverseChargingViewControllerOptional.isPresent()) {
             mReverseChargingViewControllerOptional.get().initialize();
         }
-        mNotificationLockscreenUserManagerGoogle.updateSmartSpaceVisibilitySettings();
     }
 
     @Override
